@@ -6,7 +6,7 @@
  class FPPDO extends PDO {
 
  	public $result;
-  private $debug,$showerror;
+  private $debug,$is_showerror;
   public $table;
   public $prefix;
   public $is_error;
@@ -26,9 +26,9 @@
  	}
   public function showerror($dbg=true){
     if ($dbg){
-      $this->showerror=true;
+      $this->is_showerror=true;
     }else{
-      $this->showerror=false;
+      $this->is_showerror=false;
     }
   }
   public function debug($dbg=true){
@@ -115,7 +115,7 @@
 		return $pretable;
 	}
   function error($msg){
-    if ($this->showerror){
+    if ($this->is_showerror){
       echo 'DB Error : '.$msg;
       die();
     }
