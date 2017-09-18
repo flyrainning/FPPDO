@@ -1,10 +1,38 @@
+<?php
+
+require "../class/FPPDO.php";
+require "../class/MSSQL.php";
+require "../class/MySQL.php";
+require "../class/SQLite.php";
+
+
+$act=$_REQUEST['act'];
+$code=$_REQUEST['code'];
+$page=$_REQUEST['page'];
+
+if (empty($act)){
+
+  if (file_exists($page)) {
+  	$code=file_get_contents($page);
+    $code=str_replace("<?php","",$code);
+    $code=str_replace("<?","",$code);
+    $code=str_replace("?>","",$code);
+  }else{
+    $code="";
+  }
+
+}
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>EasyChart Example</title>
+    <title>FPPDO Example</title>
 
     <!-- jquery -->
     <script src="lib/jquery/jquery-1.11.3.min.js"></script>
@@ -14,75 +42,89 @@
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 
-    <!-- echarts -->
-    <script src="../dist/Browser/js/echarts.min.js"></script>
-    <script src="../dist/Browser/js/echarts-gl.min.js"></script>
-
-    <!-- EasyChart -->
-    <script src="../dist/Browser/js/EasyChart.min.js"></script>
-
-    <script>
-    //全局配置uri
-      EasyChart_config={
-        uri:"server/api/"
-      };
-    </script>
-
   </head>
   <body>
     <div class="container">
 
       <div class="page-header">
-        <h1>Example <small>for EasyChart</small></h1>
+        <h1>Example <small>for FPPDO</small></h1>
       </div>
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Example</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" >
+            <ul class="nav navbar-nav">
+              <?php
+              foreach (glob("./page/*") as $dir) {
+                $dname=basename($dir);
+                echo '<li class="dropdown">';
+                echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$dname.'<span class="caret"></span></a>';
+                echo '<ul class="dropdown-menu">';
+
+                foreach (glob($dir."/*") as $f) {
+                  $fname=basename($f,'.php');
+                  echo '<li><a href="?page='.$f.'">'.$fname.'</a></li>';
+                }
+                echo '</ul>';
+                echo '</li>';
+
+              }
+
+               ?>
+
+
+            </ul>
+
+
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+
 
 
       <div class="panel panel-default">
-        <div class="panel-heading">EasyChart Example</div>
+        <div class="panel-heading">PHP CODE</div>
         <div class="panel-body">
+          <form id="from" action="#" method="post">
+            <input type="hidden" name="act" value="run">
+            <textarea name="code" style="width:100%;height:360px"><?=$code?></textarea>
+          </form>
 
-          <div
-            EasyChart
-            data-delay="10"
-            data-debug="true"
-            data-onload="init"
-            data-api="chart.fruit"
-            data-opt='{"echarts_style":"macarons","loading_text":"loading ...","height":"360px"}'
-            data-post='{"title":"汇总"}'
+        </div>
+        <div class="panel-footer clearfix">
 
-          ></div>
-
+          <button type="button" class="btn btn-success pull-right " onclick="run();">Run</button>
           <script>
-            function init(){
-              console.log('chart loaded');
-            }
-          </script>
+          function run(){
+            $("#from").submit();
+          }
 
+          </script>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Result</div>
+        <div class="panel-body">
+          <textarea style="width:100%;height:360px"><?php
+
+          if ($act=="run"){
+            eval($code);
+          }
+
+          ?></textarea>
 
         </div>
       </div>
 
 
-
-
-      <div class="panel panel-default">
-        <div class="panel-heading">EasyChart 3D Example</div>
-        <div class="panel-body">
-
-          <div id="chart3d"></div>
-
-          <script>
-            var c3d=EC.add({
-              id:"chart3d",
-              api:"chart.fruit3D",
-              height:"360px"
-            });
-            c3d.load({title:"Fruit 3D Example",subtitle:"3D 实例"});
-          </script>
-
-
-        </div>
-      </div>
 
 
     </div>
