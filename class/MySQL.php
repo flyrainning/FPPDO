@@ -2,7 +2,7 @@
 /**
  * MySQL class
  */
- require "FPPDO.php";
+ require_once "FPPDO.php";
 
  class MySQL extends FPPDO {
 
@@ -46,6 +46,10 @@
     global $G_MySQL_Object;
     if (empty($G_MySQL_Object)) $G_MySQL_Object=new MySQL($id);
     return $G_MySQL_Object;
+  }
+  function error($msg){
+      echo 'DB Error : '.$msg;
+      die();
   }
 
 

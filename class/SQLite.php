@@ -2,7 +2,7 @@
 /**
  * SQLite class
  */
-require "FPPDO.php";
+require_once "FPPDO.php";
 
 class SQLite extends FPPDO{
 

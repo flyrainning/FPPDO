@@ -2,7 +2,7 @@
 /**
  * MSSQL class
  */
-require "FPPDO.php";
+require_once "FPPDO.php";
 
 class MSSQL extends FPPDO{
 
