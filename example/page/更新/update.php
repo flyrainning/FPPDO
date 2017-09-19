@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,12 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
 
-$db->q("show databases");
+$db->table("user");
 
-$result=$db->arr();
-print_r($result);
+$userinfo=array(
+  'email'=>"new@email.com"
+  );
 
+$db->update($userinfo,'`uid`=?',$uid);
  ?>

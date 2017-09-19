@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,9 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
+$db->table("user");
 
-$db->q("show databases");
+$db->select();
 
-$result=$db->arr();
-print_r($result);
-
+print_r($db->count());
  ?>

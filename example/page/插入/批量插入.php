@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,22 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
+$data=array(
+  array(
+    'id'=>1,
+    'name'=>"u1"
+    ),
+  array(
+    'id'=>2,
+    'name'=>"u2"
+    ),
+  array(
+    'id'=>3,
+    'name'=>"u2"
+    ),
+  );
 
-$db->q("show databases");
-
-$result=$db->arr();
-print_r($result);
+$db->table("user");
+$db->insert_array($data);
 
  ?>

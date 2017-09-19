@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,18 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
+$db->table("log");
 
-$db->q("show databases");
+$log1=array(
+  'user'=>"u1",
+  'message'=>"something"
+  );
+$log2=array(
+  'user'=>"u2",
+  'message'=>"msg for u2"
+  );
 
-$result=$db->arr();
-print_r($result);
+$db->insert($log1);
+$db->insert($log2);
 
  ?>

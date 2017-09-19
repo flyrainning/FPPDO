@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,21 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
+$db->table("log");
 
-$db->q("show databases");
 
-$result=$db->arr();
-print_r($result);
+$sqls=<<<SQL
+update `{perfix}.user` set
+ `username`=:username,
+ `email`=:email
+ where
+ `uid`=:uid
+SQL;
+
+$db->q($sqls,array(
+  'uid'=>1,
+  'username'=>'u1',
+  'email'=>'email@email.com'
+  ));
 
  ?>

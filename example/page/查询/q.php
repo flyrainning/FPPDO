@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//基本连接方式
 
 $DB_MySQL=array(
   array(
@@ -19,11 +19,10 @@ $DB_MySQL=array(
 
 $db=MySQL::open();
 
-print_r($db);
+$db->table("log");
 
-$db->q("show databases");
+$db->q("select * from {table} where `id`=?",1);
 
-$result=$db->arr();
+$result=$db->one();
 print_r($result);
-
  ?>

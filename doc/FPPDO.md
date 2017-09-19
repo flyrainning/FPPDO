@@ -297,7 +297,7 @@ $db->update($userinfo,'`uid`=?',$uid);
 $db->table("log");
 
 $log=array(
-  'id'=>1
+  'id'=>1,
   'user'=>"u1",
   'message'=>"something"
   );
