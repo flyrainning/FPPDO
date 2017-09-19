@@ -2,6 +2,7 @@
 /**
  * MySQL class
  */
+ require "FPPDO.php";
 
  class MySQL extends FPPDO {
 
@@ -15,7 +16,12 @@
     if (empty($id) || (!isset($configarr[$id]))){
       $c=array_shift($configarr);
     }else{
-      $c=array_shift($configarr[$id]);
+      foreach ($configarr as $key => $value) {
+        if ($value['id']==$id){
+          $c=$value;
+          break;
+        }
+      }
     }
 
     empty($c['server']) and $this->error('server error');
@@ -24,7 +30,8 @@
     $user=$c['user'];
     $passwd=$c['passwd'];
     $db=$c['db'];
-    $options=is_array($c['options'])?$c['options']:array();
+    $options=isset($c['options'])?$c['options']:array();
+    $options=empty($options)?array():$options;
     $port=empty($c['port'])?3306:$c['port'];
     $charset=empty($c['charset'])?'utf8':$c['charset'];
     empty($c['prefix']) or $this->prefix($c['prefix']);
