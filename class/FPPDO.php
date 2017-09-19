@@ -51,8 +51,8 @@
     $pa=func_get_args();
     $this->result=false;
     if (!empty($this->table)){
-      $sql=str_replace('`{table}`','`'.$this->table.'`',$sql);
-      $sql=str_replace('`{_table_}`','`'.$this->table.'`',$sql);
+      $sql=str_replace('{table}',$this->table,$sql);
+      $sql=str_replace('{prefix}',$this->prefix,$sql);
     }
 		if (!empty($pa[1])){//如果有变量，进行绑定
       array_shift($pa);
