@@ -15,7 +15,7 @@ $DB_SQLite=array(
 require_once "FPPDO.php";
 
 class SQLite extends FPPDO{
-  function __construct($id='') {
+  function __construct($id="",$init_sql="") {
 
    global $DB_SQLite;
    $configarr=$DB_SQLite;
@@ -43,10 +43,12 @@ class SQLite extends FPPDO{
 
    parent::__construct($dsn, NULL, NULL,$options);
 
+   empty($init_sql) or $this->q($init_sql);
+
  }
- static function open($id=""){
+ static function open($id="",$init_sql=""){
    global $G_SQLite_Object;
-   if (empty($G_SQLite_Object)) $G_SQLite_Object=new MySQL($id);
+   if (empty($G_SQLite_Object)) $G_SQLite_Object=new SQLite($id,$init_sql);
    return $G_SQLite_Object;
  }
  function error($msg){

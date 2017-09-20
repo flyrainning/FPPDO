@@ -11,29 +11,19 @@ SQLite基于FPPDO，提供了对SQLite数据库的配置管理和连接管理功
 | id      | 配置id，可以是字符串，唯一      |
 | desc    | 说明                            |
 | file    | 数据库文件，为空使用内存数据库  |
-| port    | 服务器端口                      |
-| user    | 用户名                          |
-| passwd  | 密码                            |
-| charset | 默认字符集                      |
 | prefix  | 表前缀                          |
 | options | 数组，附加配置，参考PDO的option |
 
 
 ```
-$DB_MySQL=array(
-	array(
-		'id'=>'1',
-		'desc'=>'主数据库',
-		'server' => 'localhost',
-    'port' => 3306,
-		'user' => 'root',
-		'passwd' => 'root',
-		'db' => '',
-		'charset' => 'utf8',
+$DB_SQLite=array(
+  array(
+    'id'=>'1',
+    'desc'=>'主数据库',
+    'file' => '',//file为空，使用内存数据库
     'prefix' => '',
-		'options'=>array(),
-	),
-
+    'options'=>array(),
+  ),
 );
 ```
 
@@ -53,5 +43,32 @@ $db=MySQL::open();//使用默认数据库
 $db=MySQL::open("2");//使用id为2的数据库
 
 $db=new MySQL("2");//使用id为2的数据库，创建新连接
+
+```
+
+可传入第二个参数，指定一段sql语句，该语句会在数据库初始化的时候被调用，这在使用内存数据库时很有用，可用来初始化相关表
+
+```
+$DB_SQLite=array(
+  array(
+    'id'=>'1',
+    'desc'=>'主数据库',
+    'file' => '',//file为空，使用内存数据库
+    'prefix' => '',
+    'options'=>array(),
+  ),
+);
+
+
+$init_sql=<<<CODE
+CREATE TABLE `newtable` (
+	`Field1`	INTEGER,
+	`Field2`	TEXT,
+	`Field3`	BLOB,
+	`Field4`	REAL,
+	`Field5`	NUMERIC
+);
+CODE;
+$db=SQLite::open('',$init_sql);
 
 ```
