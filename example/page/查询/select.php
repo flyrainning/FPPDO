@@ -25,4 +25,5 @@ $db->select('uid,username,email','`uid`=?',$uid);
 
 $user_info=$db->one();
 print_r($user_info);
- ?>
+
+?>
