@@ -6,9 +6,9 @@ require "../class/MySQL.php";
 require "../class/SQLite.php";
 
 
-$act=$_REQUEST['act'];
-$code=$_REQUEST['code'];
-$page=$_REQUEST['page'];
+$act=isset($_REQUEST['act'])?$_REQUEST['act']:"";
+$code=isset($_REQUEST['code'])?$_REQUEST['code']:"";
+$page=isset($_REQUEST['page'])?$_REQUEST['page']:"";
 
 if (empty($act)){
 
