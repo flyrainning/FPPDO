@@ -6,18 +6,19 @@ MSSQL基于FPPDO，提供了对微软SQL Server的配置管理和连接管理功
 
 创建`$DB_MSSQL`全局变量，包含配置信息
 
-|  名称   |              说明               |
-| ------- | ------------------------------- |
-| id      | 配置id，可以是字符串，唯一      |
-| desc    | 说明                            |
-| server  | 服务器地址                      |
-| port    | 服务器端口                      |
-| user    | 用户名                          |
-| passwd  | 密码                            |
-| db      | 使用的数据库                    |
-| charset | 默认字符集                      |
-| prefix  | 表前缀                          |
-| options | 数组，附加配置，参考PDO的option |
+|  名称   |                   说明                    |
+| ------- | ----------------------------------------- |
+| id      | 配置id，可以是字符串，唯一                |
+| desc    | 说明                                      |
+| server  | 服务器地址                                |
+| port    | 服务器端口                                |
+| user    | 用户名                                    |
+| passwd  | 密码                                      |
+| db      | 使用的数据库                              |
+| charset | 默认字符集                                |
+| prefix  | 表前缀                                    |
+| driver  | 使用的驱动，默认`dblib`，windows下使用`mssql` |
+| options | 数组，附加配置，参考PDO的option           |
 
 
 ```
@@ -32,6 +33,7 @@ $DB_MSSQL=array(
 		'db' => '',
 		'charset' => 'utf8',
     'prefix' => '',
+		'driver'=>'dblib',
 		'options'=>array(),
 	),
 

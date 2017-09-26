@@ -46,6 +46,9 @@
       echo "\n ---\n\n";
     }
   }
+  function pre_sql($sqls){
+    return $sqls;
+  }
   function q($sql){
     $this->is_error=false;
     $pa=func_get_args();
@@ -54,6 +57,7 @@
       $sql=str_replace('{table}',$this->table,$sql);
       $sql=str_replace('{prefix}',$this->prefix,$sql);
     }
+    $sql=$this->pre_sql($sql);
 		if (!empty($pa[1])){//如果有变量，进行绑定
       array_shift($pa);
       if (is_array($pa[0])) $pa=$pa[0];

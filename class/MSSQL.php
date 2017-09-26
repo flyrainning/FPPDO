@@ -12,6 +12,7 @@ $DB_MSSQL=array(
     'db' => '',
     'charset' => 'utf8',
     'prefix' => '',
+    'driver'=>'dblib',//mssql dblib
     'options'=>array(),
   ),
 );
@@ -45,6 +46,9 @@ class MSSQL extends FPPDO{
       $user=$c['user'];
       $passwd=$c['passwd'];
       $db=$c['db'];
+      $driver=isset($c['driver'])?$c['driver']:'dblib';
+      $driver=empty($driver)?'dblib':$driver;
+
       $options=isset($c['options'])?$c['options']:array();
       $options=empty($options)?array():$options;
       $port=empty($c['port'])?1433:$c['port'];
@@ -52,7 +56,7 @@ class MSSQL extends FPPDO{
       empty($c['prefix']) or $this->prefix($c['prefix']);
 
 
-      $dsn="mssql:host=$server;dbname=$db;port=$port;charset=$charset";
+      $dsn="$driver:host=$server;dbname=$db;port=$port;charset=$charset";
 
       parent::__construct($dsn, $user, $passwd,$options);
 
@@ -61,6 +65,9 @@ class MSSQL extends FPPDO{
       global $G_MSSQL_Object;
       if (empty($G_MSSQL_Object)) $G_MSSQL_Object=new MSSQL($id);
       return $G_MSSQL_Object;
+    }
+    function pre_sql($sqls){
+      return str_replace('`','',$sql);
     }
 
 
