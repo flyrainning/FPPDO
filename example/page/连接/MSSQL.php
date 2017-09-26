@@ -22,7 +22,7 @@ $db=MSSQL::open();
 
 print_r($db);
 
-$db->q("show databases");
+$db->q("Select Name From Master..SysDatabases order By Name");
 
 $result=$db->arr();
 print_r($result);
