@@ -13,6 +13,7 @@ $DB_MSSQL=array(
     'db' => '',
     'charset' => 'utf8',
     'prefix' => '',
+    'driver'=>'dblib',
     'options'=>array(),
   ),
 );
