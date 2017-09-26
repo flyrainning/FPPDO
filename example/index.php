@@ -91,8 +91,11 @@ set_error_handler("FPPDOErrorHandler");
           <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
               <?php
+              function get_basename($filename){
+        				return preg_replace('/^.+[\\\\\\/]/', '', $filename);
+        			}
               foreach (glob("./page/*") as $dir) {
-                $dname=basename($dir);
+                $dname=get_basename($dir);
                 echo '<li class="dropdown">';
                 echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.$dname.'<span class="caret"></span></a>';
                 echo '<ul class="dropdown-menu">';
