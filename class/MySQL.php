@@ -60,10 +60,7 @@ $DB_MySQL=array(
     if (empty($G_MySQL_Object)) $G_MySQL_Object=new MySQL($id);
     return $G_MySQL_Object;
   }
-  function error($msg){
-      echo 'DB Error : '.$msg;
-      die();
-  }
+
 
 
  }

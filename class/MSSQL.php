@@ -62,10 +62,7 @@ class MSSQL extends FPPDO{
       if (empty($G_MSSQL_Object)) $G_MSSQL_Object=new MSSQL($id);
       return $G_MSSQL_Object;
     }
-    function error($msg){
-        echo 'DB Error : '.$msg;
-        die();
-    }
+
 
 }
 

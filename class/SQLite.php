@@ -51,10 +51,7 @@ class SQLite extends FPPDO{
    if (empty($G_SQLite_Object)) $G_SQLite_Object=new SQLite($id,$init_sql);
    return $G_SQLite_Object;
  }
- function error($msg){
-     echo 'DB Error : '.$msg;
-     die();
- }
+
 
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-//使用MySQL类
+//使用MSSQL类
 
 $DB_MSSQL=array(
   array(

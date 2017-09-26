@@ -14,7 +14,7 @@
 
  	function __construct($dsn, $user, $passwd,$options) {
     $this->debug=false;
-    $this->showerror=true;
+    $this->is_showerror=true;
     $this->prefix="";
     try {
         parent::__construct($dsn, $user, $passwd,$options);
