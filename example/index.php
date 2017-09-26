@@ -72,6 +72,24 @@ set_error_handler("FPPDOErrorHandler");
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <script src="lib/codemirror/mode/xml/xml.js"></script>
+    <script src="lib/codemirror/mode/javascript/javascript.js"></script>
+    <script src="lib/codemirror/mode/css/css.js"></script>
+    <script src="lib/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="lib/codemirror/mode/clike/clike.js"></script>
+    <script src="lib/codemirror/mode/php/php.js"></script>
+
+    <link rel="stylesheet" href="lib/codemirror/theme/lesser-dark.css">
+    <style>
+    .CodeMirror {
+      border: 1px solid #eee;
+      height: 100%;
+    }
+    </style>
+
+
   </head>
   <body>
     <div class="container">
@@ -127,17 +145,30 @@ set_error_handler("FPPDOErrorHandler");
         <div class="panel-body">
           <form id="from" action="#" method="post">
             <input type="hidden" name="act" value="run">
-            <textarea name="code" style="width:100%;height:360px"><?=$code?></textarea>
+            <div style="width:100%;height:460px">
+            <textarea id="code" name="code" height="auto" style="width:100%;height:auto;"><?=$code?></textarea>
+            </div>
           </form>
 
         </div>
         <div class="panel-footer clearfix">
 
           <button type="button" class="btn btn-success pull-right " onclick="run();">Run</button>
+
+
           <script>
           function run(){
             $("#from").submit();
           }
+
+          var myTextarea = document.getElementById('code');
+          var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+             mode: "text/x-php",
+             styleActiveLine: true,
+      			 lineNumbers: true,
+      			 lineWrapping: true,
+      			 theme:"lesser-dark"
+          });
 
           </script>
         </div>
