@@ -119,7 +119,7 @@ set_error_handler("FPPDOErrorHandler");
                 echo '<ul class="dropdown-menu">';
 
                 foreach (glob($dir."/*") as $f) {
-                  $fname=basename($f,'.php');
+                  $fname=get_basename($f,'.php');
                   echo '<li><a href="?page='.$f.'">'.$fname.'</a></li>';
                 }
                 echo '</ul>';
