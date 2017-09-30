@@ -285,7 +285,7 @@
         }
         $where=$neww;
       }else{
-        if (strpos($where,'`')===flase) $this->error('Where Format Error');
+        if (strpos($where,'`')===false) $this->error('Where Format Error');
       }
 
       $sqls="UPDATE `".$this->table."` SET $ks WHERE $where;";
