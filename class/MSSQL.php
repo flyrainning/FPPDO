@@ -22,6 +22,8 @@ require_once "FPPDO.php";
 
 class MSSQL extends FPPDO{
 
+  public static $dblist;
+
 
    	function __construct($id='') {
 
@@ -29,7 +31,7 @@ class MSSQL extends FPPDO{
       $configarr=$DB_MSSQL;
       is_array($configarr) or $this->error('config error');
       $c=array();
-      if (empty($id) || (!isset($configarr[$id]))){
+      if (empty($id)){
         $c=array_shift($configarr);
       }else{
         foreach ($configarr as $key => $value) {
@@ -62,9 +64,10 @@ class MSSQL extends FPPDO{
 
    	}
     static function open($id=""){
-      global $G_MSSQL_Object;
-      if (empty($G_MSSQL_Object)) $G_MSSQL_Object=new MSSQL($id);
-      return $G_MSSQL_Object;
+      if (empty(self::$dblist)) self::$dblist=array();
+    $key=empty($id)?"_default":$id;
+    if (empty(self::$dblist[$key])) self::$dblist[$key]=new MSSQL($id);
+    return self::$dblist[$key];
     }
     function pre_sql($sql){
       return str_replace('`','',$sql);

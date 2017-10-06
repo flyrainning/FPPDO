@@ -15,13 +15,15 @@ $DB_SQLite=array(
 require_once "FPPDO.php";
 
 class SQLite extends FPPDO{
+  public static $dblist;
+
   function __construct($id="",$init_sql="") {
 
    global $DB_SQLite;
    $configarr=$DB_SQLite;
    is_array($configarr) or $this->error('config error');
    $c=array();
-   if (empty($id) || (!isset($configarr[$id]))){
+   if (empty($id)){
      $c=array_shift($configarr);
    }else{
      foreach ($configarr as $key => $value) {
@@ -47,9 +49,10 @@ class SQLite extends FPPDO{
 
  }
  static function open($id="",$init_sql=""){
-   global $G_SQLite_Object;
-   if (empty($G_SQLite_Object)) $G_SQLite_Object=new SQLite($id,$init_sql);
-   return $G_SQLite_Object;
+   if (empty(self::$dblist)) self::$dblist=array();
+    $key=empty($id)?"_default":$id;
+    if (empty(self::$dblist[$key])) self::$dblist[$key]=new SQLite($id);
+    return self::$dblist[$key];
  }
 
 

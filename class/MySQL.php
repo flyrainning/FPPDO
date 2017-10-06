@@ -19,6 +19,9 @@ $DB_MySQL=array(
 
  class MySQL extends FPPDO {
 
+   public static $dblist;
+
+
 
  	function __construct($id='') {
 
@@ -26,7 +29,7 @@ $DB_MySQL=array(
     $configarr=$DB_MySQL;
     is_array($configarr) or $this->error('config error');
     $c=array();
-    if (empty($id) || (!isset($configarr[$id]))){
+    if (empty($id)){
       $c=array_shift($configarr);
     }else{
       foreach ($configarr as $key => $value) {
@@ -56,9 +59,10 @@ $DB_MySQL=array(
 
  	}
   static function open($id=""){
-    global $G_MySQL_Object;
-    if (empty($G_MySQL_Object)) $G_MySQL_Object=new MySQL($id);
-    return $G_MySQL_Object;
+    if (empty(self::$dblist)) self::$dblist=array();
+    $key=empty($id)?"_default":$id;
+    if (empty(self::$dblist[$key])) self::$dblist[$key]=new MYSQL($id);
+    return self::$dblist[$key];
   }
 
 
