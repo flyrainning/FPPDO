@@ -181,15 +181,16 @@
 
 			$arr=$this->one($result);
 		}
+    if (!empty($arr)){
+      foreach($arr as $k=>$v){
+  			$keyname=$header.$k;
+  			global ${$keyname};
 
-		foreach($arr as $k=>$v){
-			$keyname=$header.$k;
-			global ${$keyname};
-
-			if ((isset(${$keyname})) &&(!$replace)) $this->error('sql var repeated : '.$keyname);
-			${$keyname}=$v;
-			$res=true;
-		}
+  			if ((isset(${$keyname})) &&(!$replace)) $this->error('sql var repeated : '.$keyname);
+  			${$keyname}=$v;
+  			$res=true;
+  		}
+    }
 		return $res;
 
 	}
